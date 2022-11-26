@@ -10,6 +10,7 @@ spec:
   selector:
     matchLabels:
       project: {{ .Release.Name }}
+  minReadySeconds: {{ .Values.container.initTime }}
   template:
     metadata:
      labels: 
@@ -20,5 +21,15 @@ spec:
          image: {{ .Values.container.webAppImage }}
          ports: 
             - containerPort: {{ .Values.container.webAppPort }}
-
+	    - containerPort: {{ .Values.container.probePort }}
+	 readinessProbe:
+	 	tcpSocket:
+	 		port: {{ .Values.container.probePort }}
+	 	initialDelaySeconds: {{ .Values.container.initTime }}
+	 	periodSeconds: {{ Values.container.readinessProbePeriod }}
+	 livenessProbe:
+	 	tcpSocket:
+	 		port: {{ .Values.container.probePort }}
+	 	initialDelayseconds: {{ .Values.container.livenessProbeDelay }}
+	 	periodSeconds: {{ .Values.container.livenessProbePeriod }}
 

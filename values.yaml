@@ -3,11 +3,16 @@
 container:
 	webAppImage: nginx
 	webAppPort : 80
+	probePort  : 10000
+	initTime   : 10 
+	readinessProbePeriod: 10
+	livenessProbePeriod : 20
+	livenessProbeDelay  : 15
 hpa:
 	minRepl : 2
 	maxRepl : 4
 	
 service:
-	type: LoadBalancer
+	type            : LoadBalancer
 	loadBalancerPort: 7777	
-	protocol: TCP
+	protocol        : TCP
