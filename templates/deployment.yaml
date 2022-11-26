@@ -1,7 +1,7 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
+  name: {{ .Release.Name }}-web-app
   labels:
     app: {{ .Release.Name }}-deployment
     env: test
@@ -16,9 +16,27 @@ spec:
      labels: 
       project: {{ .Release.Name }}
     spec:
+     affinity:
+     	podAntiAffinity:
+     		prefferedDuringSchedulingIgnoredDuringExecution:
+     			podAffinityTerm:
+     				labelSelector:
+     					matchExpressions:
+     						- key: app
+     						  operator: In
+     						  values:
+     						  	- {{ .Release.Name }}-web-app
+     				topologyKey: topology.kubernetes.io/zone
      containers:
        - name: {{ .Release.Name }}-container
          image: {{ .Values.container.webAppImage }}
+         recources:
+         	limits:
+         		cpu: {{ .Values.container.cpuLimit }}
+         		memory: {{ .Values.container.memoryLimit }}
+         	requests:
+         		cpu: {{ .Values.container.cpuRequest }}
+         		memory: {{ .Values.container.memoryRequest }}
          ports: 
             - containerPort: {{ .Values.container.webAppPort }}
 	    - containerPort: {{ .Values.container.probePort }}

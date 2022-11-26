@@ -8,12 +8,12 @@ metadata:
 spec:
   type: {{ Values.service.type }}
   selector:
-    project: {{ Release.Name }}  #selecting pods with those labels
+    project: {{ Release.Name }}  #
   ports:
     - name: {{ Release.Name }}-port
       protocol: {{ Values.service.protocol }}
-      port: {{ Values.service.loadBalancerPort }}   #PortOnLoadBalancer
-      targetPort: {{ Values.container.webAppPort }} #PortOnPod
+      port: {{ Values.service.loadBalancerPort }}   
+      targetPort: {{ Values.container.webAppPort }} 
 
 
 
