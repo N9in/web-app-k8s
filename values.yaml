@@ -1,24 +1,24 @@
 # Default Values for Helm Chart
 
 container:
-	webAppImage: nginx
-	webAppPort : 80
-	probePort  : 10000
-	initTime   : 10 
-	cpuLimit     : "300m"
-	memoryLimit  : "128M"
-	cpuRequest   : "100m" #0.1CPU
-	memoryRequest: "128M"
-	readinessProbePeriod: 10
-	livenessProbePeriod : 20
-	livenessProbeDelay  : 15
+  webAppImage: nginx
+  webAppPort : 80
+  probePort  : 10000
+  initTime   : 10
+  cpuLimit     : "300m"
+  memoryLimit  : "128M"
+  cpuRequest   : "100m" #0.1CPU
+  memoryRequest: "128M"
+  readinessProbePeriod: 10
+  livenessProbePeriod : 20
+  livenessProbeDelay  : 15
 hpa:
-	minRepl : 2
-	maxRepl : 4
-	cpuUtilization   : 80
-	memoryUtilization: 90
-	
+  minRepl : 2
+  maxRepl : 4
+  cpuUtilization   : 80
+  memoryUtilization: 90
+
 service:
-	type            : LoadBalancer
-	loadBalancerPort: 7777	
-	protocol        : TCP
+  type            : LoadBalancer
+  loadBalancerPort: 7777
+  protocol        : TCP

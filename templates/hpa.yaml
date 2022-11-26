@@ -6,20 +6,19 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ Release.Name }}-web-app
-  minReplicas: {{ Values.hpa.minRepl }}
-  maxReplicas: {{ Values.hpa.maxRepl }}
+    name: {{ .Release.Name }}-web-app
+  minReplicas: {{ .Values.hpa.minRepl }}
+  maxReplicas: {{ .Values.hpa.maxRepl }}
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: {{ Values.hpa.cpuUtilization }}
+        averageUtilization: {{ .Values.hpa.cpuUtilization }}
   - type: Resource
     resource:
       name: memory
-      target: 
+      target:
         type: Utilization
-        averageUtilization: {{ Values.hpa.memoryUtilization }}
-      
+        averageUtilization: {{ .Values.hpa.memoryUtilization }}

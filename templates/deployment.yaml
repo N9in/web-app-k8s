@@ -13,41 +13,40 @@ spec:
   minReadySeconds: {{ .Values.container.initTime }}
   template:
     metadata:
-     labels: 
+     labels:
       project: {{ .Release.Name }}
     spec:
-     affinity:
-     	podAntiAffinity:
-     		prefferedDuringSchedulingIgnoredDuringExecution:
-     			podAffinityTerm:
-     				labelSelector:
-     					matchExpressions:
-     						- key: app
-     						  operator: In
-     						  values:
-     						  	- {{ .Release.Name }}-web-app
-     				topologyKey: topology.kubernetes.io/zone
-     containers:
-       - name: {{ .Release.Name }}-container
-         image: {{ .Values.container.webAppImage }}
-         recources:
-         	limits:
-         		cpu: {{ .Values.container.cpuLimit }}
-         		memory: {{ .Values.container.memoryLimit }}
-         	requests:
-         		cpu: {{ .Values.container.cpuRequest }}
-         		memory: {{ .Values.container.memoryRequest }}
-         ports: 
+      affinity:
+       podAntiAffinity:
+         prefferedDuringSchedulingIgnoredDuringExecution:
+           podAffinityTerm:
+             labelSelector:
+               matchExpressions:
+                 - key: app
+                   operator: In
+                   values:
+                     - {{ .Release.Name }}-web-app
+             topologyKey: topology.kubernetes.io/zone
+      containers:
+        - name: {{ .Release.Name }}-container
+          image: {{ .Values.container.webAppImage }}
+          recources:
+            limits:
+              cpu: {{ .Values.container.cpuLimit }}
+              memory: {{ .Values.container.memoryLimit }}
+            requests:
+              cpu: {{ .Values.container.cpuRequest }}
+              memory: {{ .Values.container.memoryRequest }}
+          ports:
             - containerPort: {{ .Values.container.webAppPort }}
-	    - containerPort: {{ .Values.container.probePort }}
-	 readinessProbe:
-	 	tcpSocket:
-	 		port: {{ .Values.container.probePort }}
-	 	initialDelaySeconds: {{ .Values.container.initTime }}
-	 	periodSeconds: {{ Values.container.readinessProbePeriod }}
-	 livenessProbe:
-	 	tcpSocket:
-	 		port: {{ .Values.container.probePort }}
-	 	initialDelayseconds: {{ .Values.container.livenessProbeDelay }}
-	 	periodSeconds: {{ .Values.container.livenessProbePeriod }}
-
+            - containerPort: {{ .Values.container.probePort }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.container.probePort }}
+            initialDelaySeconds: {{ .Values.container.initTime }}
+            periodSeconds: {{ .Values.container.readinessProbePeriod }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.container.probePort }}
+            initialDelayseconds: {{ .Values.container.livenessProbeDelay }}
+            periodSeconds: {{ .Values.container.livenessProbePeriod }}
