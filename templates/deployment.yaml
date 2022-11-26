@@ -18,7 +18,8 @@ spec:
     spec:
       affinity:
        podAntiAffinity:
-         prefferedDuringSchedulingIgnoredDuringExecution:
+         preferredDuringSchedulingIgnoredDuringExecution:
+         - weight: 5
            podAffinityTerm:
              labelSelector:
                matchExpressions:
@@ -30,7 +31,7 @@ spec:
       containers:
         - name: {{ .Release.Name }}-container
           image: {{ .Values.container.webAppImage }}
-          recources:
+          resources:
             limits:
               cpu: {{ .Values.container.cpuLimit }}
               memory: {{ .Values.container.memoryLimit }}
@@ -48,5 +49,5 @@ spec:
           livenessProbe:
             tcpSocket:
               port: {{ .Values.container.probePort }}
-            initialDelayseconds: {{ .Values.container.livenessProbeDelay }}
+            initialDelaySeconds: {{ .Values.container.livenessProbeDelay }}
             periodSeconds: {{ .Values.container.livenessProbePeriod }}

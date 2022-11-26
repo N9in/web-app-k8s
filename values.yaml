@@ -9,9 +9,9 @@ container:
   memoryLimit  : "128M"
   cpuRequest   : "100m" #0.1CPU
   memoryRequest: "128M"
-  readinessProbePeriod: 10
+  readinessProbePeriod: 15
   livenessProbePeriod : 20
-  livenessProbeDelay  : 15
+  livenessProbeDelay  : 25
 hpa:
   minRepl : 2
   maxRepl : 4
