@@ -7,7 +7,6 @@ metadata:
     env: test
     owner: anton
 spec:
-  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       project: {{ .Release.Name }}
