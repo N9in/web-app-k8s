@@ -1,0 +1,17 @@
+apiVersion : v2
+name       : web-app-k8s
+description: My k8s solution for web app 
+type       : application
+version    : 0.1.0
+appVersion : 1.0
+
+keywords   :
+	- webapp
+	- mindbox
+	- n9in
+	- testTask
+	
+maintainers: 
+	name : Anton Grigorov
+	email: anton.grigorov.01@mail.ru
+		

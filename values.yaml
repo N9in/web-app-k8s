@@ -1,0 +1,13 @@
+# Default Values for Helm Chart
+
+container:
+	webAppImage: nginx
+	webAppPort : 80
+hpa:
+	minRepl : 2
+	maxRepl : 4
+	
+service:
+	type: LoadBalancer
+	loadBalancerPort: 7777	
+	protocol: TCP
