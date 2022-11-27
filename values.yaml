@@ -1,24 +1,24 @@
 # Default Values for Helm Chart
 
 container:
-  webAppImage: nginx
-  webAppPort : 80
-  probePort  : 10000
-  initTime   : 10
-  cpuLimit     : "300m"
-  memoryLimit  : "128M"
-  cpuRequest   : "100m" #0.1CPU
-  memoryRequest: "128M"
-  readinessProbePeriod: 15
-  livenessProbePeriod : 20
-  livenessProbeDelay  : 25
+  webAppImage: nginx # Образ
+  webAppPort : 80 # Порт приложения
+  probePort  : 10000 # Порт для работы проб
+  initTime   : 10 # Время инициализации приложения
+  cpuLimit     : "300m" # Наибольшая нагрзука на приложение
+  memoryLimit  : "128M" # Наибольшая требуемая память 
+  cpuRequest   : "100m" #0.1CPU 
+  memoryRequest: "128M" 
+  readinessProbePeriod: 15 # Период пробы на готовность принимать трафик
+  livenessProbePeriod : 20 # Период пробы на дедлок
+  livenessProbeDelay  : 25 # Задержка пробы на дедлок
 hpa:
-  minRepl : 2
-  maxRepl : 4
-  cpuUtilization   : 80
-  memoryUtilization: 90
+  minRepl : 2 # Минимальное количество подов
+  maxRepl : 4 # Максимальное количество подов
+  cpuUtilization   : 80 # Контрольное значение исп.ресурсов цпу\запр.ресурсов цпу
+  memoryUtilization: 90 # Контрольное значение исп.ресурсов памяти\запр.ресурсов памяти
 
 service:
-  type            : LoadBalancer
-  loadBalancerPort: 7777
-  protocol        : TCP
+  type            : LoadBalancer # Тип сервиса
+  loadBalancerPort: 7777 # Порт сервиса 
+  protocol        : TCP # Протокол
