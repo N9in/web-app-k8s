@@ -7,18 +7,18 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .Release.Name }}-web-app
-  minReplicas: {{ .Values.hpa.minRepl }}
-  maxReplicas: {{ .Values.hpa.maxRepl }}
+  minReplicas: {{ .Values.hpa.minRepl }} # Минимальное значение подов 2
+  maxReplicas: {{ .Values.hpa.maxRepl }} # Максимальное значение подов 4
   metrics:
-  - type: Resource
+  - type: Resource 
     resource:
-      name: cpu
+      name: cpu # Контроль CPU для скейлинга
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.cpuUtilization }}
+        averageUtilization: {{ .Values.hpa.cpuUtilization }} # Контрольное значение используемые ресурсы\запрашиваемые ресурсы
   - type: Resource
     resource:
-      name: memory
+      name: memory # Контроль memory для скейлинга
       target:
         type: Utilization
-        averageUtilization: {{ .Values.hpa.memoryUtilization }}
+        averageUtilization: {{ .Values.hpa.memoryUtilization }} # Контрольное значение используемые ресурсы\запрашиваемые ресурсы
