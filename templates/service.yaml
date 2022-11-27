@@ -12,5 +12,5 @@ spec:
   ports:
    - name: {{ .Release.Name }}-port
      protocol: {{ .Values.service.protocol }}
-     port: {{ .Values.service.loadBalancerPort }}
-     targetPort: {{ .Values.container.webAppPort }}
+     port: {{ .Values.service.loadBalancerPort }} # Порт сервиса
+     targetPort: {{ .Values.container.webAppPort }} # Порт пода
