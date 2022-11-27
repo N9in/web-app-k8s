@@ -5,7 +5,7 @@ container:
   webAppPort : 80 # Порт приложения
   probePort  : 10000 # Порт для работы проб
   initTime   : 10 # Время инициализации приложения
-  cpuLimit     : "300m" # Наибольшая нагрзука на приложение
+  cpuLimit     : "300m" # Наибольшая нагрузка на приложение
   memoryLimit  : "128M" # Наибольшая требуемая память 
   cpuRequest   : "100m" #0.1CPU 
   memoryRequest: "128M" 
