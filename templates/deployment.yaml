@@ -10,13 +10,13 @@ spec:
   selector:
     matchLabels:
       project: {{ .Release.Name }}
-  minReadySeconds: {{ .Values.container.initTime }}
+  minReadySeconds: {{ .Values.container.initTime }} # 10 seconds - app initialize time
   template:
     metadata:
      labels:
       project: {{ .Release.Name }}
     spec:
-      affinity:
+      affinity:  # Распределение по зонам кластера
        podAntiAffinity:
          preferredDuringSchedulingIgnoredDuringExecution:
          - weight: 5
@@ -27,25 +27,25 @@ spec:
                    operator: In
                    values:
                      - {{ .Release.Name }}-web-app
-             topologyKey: topology.kubernetes.io/zone
+             topologyKey: topology.kubernetes.io/zone # Распределение по зонам кластера
       containers:
         - name: {{ .Release.Name }}-container
           image: {{ .Values.container.webAppImage }}
           resources:
             limits:
-              cpu: {{ .Values.container.cpuLimit }}
-              memory: {{ .Values.container.memoryLimit }}
+              cpu: {{ .Values.container.cpuLimit }} # 0.3 CPU (значительно больше для первых запросов)
+              memory: {{ .Values.container.memoryLimit }} #128M
             requests:
-              cpu: {{ .Values.container.cpuRequest }}
-              memory: {{ .Values.container.memoryRequest }}
+              cpu: {{ .Values.container.cpuRequest }} # 0.1 CPU
+              memory: {{ .Values.container.memoryRequest }} #128M
           ports:
             - containerPort: {{ .Values.container.webAppPort }}
-            - containerPort: {{ .Values.container.probePort }}
+            - containerPort: {{ .Values.container.probePort }} # Порт для проб
           readinessProbe:
             tcpSocket:
               port: {{ .Values.container.probePort }}
-            initialDelaySeconds: {{ .Values.container.initTime }}
-            periodSeconds: {{ .Values.container.readinessProbePeriod }}
+            initialDelaySeconds: {{ .Values.container.initTime }} # 10 seconds - app initialize time
+            periodSeconds: {{ .Values.container.readinessProbePeriod }} 
           livenessProbe:
             tcpSocket:
               port: {{ .Values.container.probePort }}
